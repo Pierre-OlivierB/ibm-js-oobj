@@ -231,3 +231,22 @@ tchoutchou.trainAtTarget();
 tchoutchou.openDoor();
 tchoutchou.changeQtt(100, 95);
 tchoutchou.closeDoor();
+
+const addFirstTrains = document.getElementById("addOneTrain");
+const addSecTrains = document.getElementById("addSecTrain");
+var flagA = true;
+var flagB = true;
+
+function addTrain() {
+  if (flagA) {
+    console.log("train A add");
+    flagA = false;
+    flagB = false;
+  } else if (!flagB) {
+    console.log("train B add");
+    flagB = true;
+  }
+}
+
+addFirstTrains.addEventListener("click", addTrain);
+addSecTrains.addEventListener("click", addTrain);
