@@ -155,11 +155,15 @@ class Train {
     console.log("Fermeture des portes ! ");
   }
   changeQtt(travellersPlus, travellersMinus) {
-    this.nmbTravellers += travellersPlus;
-    this.nmbTravellers -= travellersMinus;
-    console.log(
-      "Le nombre de passager est maintenant de : " + this.nmbTravellers
-    );
+    if (this.doorOpen) {
+      this.nmbTravellers += travellersPlus;
+      this.nmbTravellers -= travellersMinus;
+      console.log(
+        "Le nombre de passager est maintenant de : " + this.nmbTravellers
+      );
+    } else if (!this.openDoor) {
+      console.log("Les portes ne sont pas ouvertes!");
+    }
   }
   leave() {
     if (this.doorOpen) {
@@ -200,10 +204,30 @@ class Train {
 var itin = ["Montpellier", "Sète", "Toulouse"];
 var tchoutchou = new Train(150, 10, false, 0, 10, 0, 0, itin);
 
+console.log(tchoutchou);
+console.log(
+  `Le train en provenance de ${itin[0]} à destination de ${
+    itin[itin.length - 1]
+  } va bientot partir. Attention au départ.`
+);
 tchoutchou.openDoor();
-tchoutchou.changeQtt(200, 150);
+tchoutchou.changeQtt(125, 0);
 tchoutchou.closeDoor();
 tchoutchou.leave();
-tchoutchou.addSpeed(10);
-tchoutchou.stopTrain(9);
+tchoutchou.addSpeed(15);
+console.log("Une vache sauvage apparait, vite, il faut freiner");
+tchoutchou.stopTrain(15);
+console.log("La vache a peur, elle se casse");
+tchoutchou.addSpeed(15);
+tchoutchou.stopTrain(0);
+tchoutchou.stopTrain(2);
+tchoutchou.stopTrain(3);
+tchoutchou.stopTrain(2);
+tchoutchou.stopTrain(2);
+tchoutchou.stopTrain(3);
+tchoutchou.stopTrain(2.5);
+tchoutchou.stopTrain(0.5);
 tchoutchou.trainAtTarget();
+tchoutchou.openDoor();
+tchoutchou.changeQtt(100, 95);
+tchoutchou.closeDoor();
