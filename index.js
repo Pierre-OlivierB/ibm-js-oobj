@@ -41,6 +41,8 @@ var waf = new Chien("Rex", "12", "Berger", "waf");
 // waf.dogScream();
 // waf.qttEat();
 // waf.description();
+// !----------------------------------------------
+// *Car
 class Car {
   constructor(mark, type, year, power) {
     this.mark = mark;
@@ -68,10 +70,57 @@ class Car {
     this.vitesse += count;
   }
 }
+function buildCar(mark, sign, year, cyl) {
+  return new Car(mark, sign, year, cyl);
+}
 var firstCar = new Car("Renault", "R5", 1990, 2);
 var secondCar = new Car("Citroën", "C4", 2000, 4);
 var thirdCar = new Car("Tesla", "L", 2015, 10);
 
-firstCar.showCar();
-firstCar.forward(10);
-firstCar.showCar();
+var fourthCar = buildCar("Toyota", "Yaris", 2005, 10);
+
+fourthCar.showCar();
+
+// firstCar.showCar();
+// firstCar.forward(10);
+// firstCar.showCar();
+
+// !-------------------------------------------
+// *Horloge
+class Clock {
+  constructor() {
+    this.date = new Date();
+    this.sec = this.date.getSeconds();
+    this.min = this.date.getMinutes();
+    this.hour = this.date.getHours();
+  }
+  add(min, sec) {
+    this.sec += sec;
+    if (this.sec >= 60) {
+      min += 1;
+      this.sec -= 60;
+    }
+    this.min += min;
+    if (this.min >= 60) {
+      this.min -= 60;
+      this.hour++;
+    }
+  }
+  showNewDate() {
+    console.log(this.hour + "H " + this.min + "min " + this.sec + "s.");
+  }
+}
+var watch = new Clock();
+watch.showNewDate();
+watch.add(21, 28);
+watch.showNewDate();
+
+const addTime = document.getElementById("addTime");
+// console.log(addTime);
+addTime.addEventListener("click", () => {
+  watch.add(21, 28);
+  watch.showNewDate();
+});
+
+// !--------------------------------------------------------
+// *
