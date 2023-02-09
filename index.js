@@ -64,9 +64,14 @@ class Car {
           : ". La voiture avance de " + this.vitesse + "km/h")
     );
   }
+  forward(count) {
+    this.vitesse += count;
+  }
 }
 var firstCar = new Car("Renault", "R5", 1990, 2);
 var secondCar = new Car("Citroën", "C4", 2000, 4);
 var thirdCar = new Car("Tesla", "L", 2015, 10);
 
+firstCar.showCar();
+firstCar.forward(10);
 firstCar.showCar();
