@@ -79,7 +79,7 @@ var thirdCar = new Car("Tesla", "L", 2015, 10);
 
 var fourthCar = buildCar("Toyota", "Yaris", 2005, 10);
 
-fourthCar.showCar();
+// fourthCar.showCar();
 
 // firstCar.showCar();
 // firstCar.forward(10);
@@ -111,9 +111,9 @@ class Clock {
   }
 }
 var watch = new Clock();
-watch.showNewDate();
-watch.add(21, 28);
-watch.showNewDate();
+// watch.showNewDate();
+// watch.add(21, 28);
+// watch.showNewDate();
 
 const addTime = document.getElementById("addTime");
 // console.log(addTime);
@@ -123,4 +123,87 @@ addTime.addEventListener("click", () => {
 });
 
 // !--------------------------------------------------------
-// *
+// *Train
+
+// TODO: begin:Montp; get travellers, close doors; begin speed +10 foreach action; max : 150; action v++ but 150;cow on way ?stop + v=0: null;cow run, train,v++ => v =150; Target v = 150, 130, 100, 80, 60, 30, 5, 0; travellers get out;
+class Train {
+  constructor(
+    vmax,
+    addv,
+    doorOpen,
+    vLive,
+    vsup,
+    nmbTravellers,
+    liveLocation,
+    targetLocation
+  ) {
+    this.vmax = vmax;
+    this.addv = addv;
+    this.doorOpen = doorOpen;
+    this.vLive = vLive;
+    this.vsup = vsup;
+    this.nmbTravellers = nmbTravellers;
+    this.liveLocation = liveLocation;
+    this.targetLocation = targetLocation;
+  }
+  openDoor() {
+    this.doorOpen = true;
+    console.log("Ouverture des portes !");
+  }
+  closeDoor() {
+    this.doorOpen = false;
+    console.log("Fermeture des portes ! ");
+  }
+  changeQtt(travellersPlus, travellersMinus) {
+    this.nmbTravellers += travellersPlus;
+    this.nmbTravellers -= travellersMinus;
+    console.log(
+      "Le nombre de passager est maintenant de : " + this.nmbTravellers
+    );
+  }
+  leave() {
+    if (this.doorOpen) {
+      console.log("Le train a toujours les portes ouvertes.");
+    } else if (!this.doorOpen) {
+      console.log(
+        "Le train quitte la gare de " + itin[this.liveLocation] + ". "
+      );
+    }
+  }
+  addSpeed(x) {
+    // console.log(this.vLive + 10);
+    this.vLive += this.addv * x;
+    if (this.vLive > this.vmax) {
+      this.vLive = this.vmax;
+    }
+    console.log("La vitesse est de : " + this.vLive + "km/h.");
+  }
+  stopTrain(x) {
+    this.vLive -= this.vsup * x;
+    if (this.vLive <= 0) {
+      this.vLive = 0;
+      return console.log("Le train est a l'arrêt");
+    }
+    console.log("La vitesse est de : " + this.vLive + "km/h.");
+  }
+  trainAtTarget() {
+    this.targetLocation = this.liveLocation + 1;
+    console.log(
+      "Le train en provenance de " +
+        itin[this.liveLocation] +
+        " va entrer en gare de " +
+        itin[this.targetLocation] +
+        ". "
+    );
+  }
+}
+var itin = ["Montpellier", "Sète", "Toulouse"];
+var tchoutchou = new Train(150, 10, false, 0, 10, 0, 0, itin);
+
+tchoutchou.openDoor();
+tchoutchou.changeQtt(200, 150);
+tchoutchou.closeDoor();
+tchoutchou.leave();
+tchoutchou.addSpeed(10);
+tchoutchou.stopTrain(9);
+tchoutchou.trainAtTarget();
