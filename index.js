@@ -204,33 +204,35 @@ class Train {
 var itin = ["Montpellier", "Sète", "Toulouse"];
 var tchoutchou = new Train(150, 10, false, 0, 10, 0, 0, itin);
 
-console.log(tchoutchou);
-console.log(
-  `Le train en provenance de ${itin[0]} à destination de ${
-    itin[itin.length - 1]
-  } va bientot partir. Attention au départ.`
-);
-tchoutchou.openDoor();
-tchoutchou.changeQtt(125, 0);
-tchoutchou.closeDoor();
-tchoutchou.leave();
-tchoutchou.addSpeed(15);
-console.log("Une vache sauvage apparait, vite, il faut freiner");
-tchoutchou.stopTrain(15);
-console.log("La vache a peur, elle se casse");
-tchoutchou.addSpeed(15);
-tchoutchou.stopTrain(0);
-tchoutchou.stopTrain(2);
-tchoutchou.stopTrain(3);
-tchoutchou.stopTrain(2);
-tchoutchou.stopTrain(2);
-tchoutchou.stopTrain(3);
-tchoutchou.stopTrain(2.5);
-tchoutchou.stopTrain(0.5);
-tchoutchou.trainAtTarget();
-tchoutchou.openDoor();
-tchoutchou.changeQtt(100, 95);
-tchoutchou.closeDoor();
+// console.log(tchoutchou);
+// console.log(
+//   `Le train en provenance de ${itin[0]} à destination de ${
+//     itin[itin.length - 1]
+//   } va bientot partir. Attention au départ.`
+// );
+// *--------------------------------------------
+// tchoutchou.openDoor();
+// tchoutchou.changeQtt(125, 0);
+// tchoutchou.closeDoor();
+// tchoutchou.leave();
+// tchoutchou.addSpeed(15);
+// console.log("Une vache sauvage apparait, vite, il faut freiner");
+// tchoutchou.stopTrain(15);
+// console.log("La vache a peur, elle se casse");
+// tchoutchou.addSpeed(15);
+// tchoutchou.stopTrain(0);
+// tchoutchou.stopTrain(2);
+// tchoutchou.stopTrain(3);
+// tchoutchou.stopTrain(2);
+// tchoutchou.stopTrain(2);
+// tchoutchou.stopTrain(3);
+// tchoutchou.stopTrain(2.5);
+// tchoutchou.stopTrain(0.5);
+// tchoutchou.trainAtTarget();
+// tchoutchou.openDoor();
+// tchoutchou.changeQtt(100, 95);
+// tchoutchou.closeDoor();
+// *---------------------------------------------
 
 // !------------------------------------------------
 // TODO:
@@ -278,22 +280,55 @@ function addTrainName() {
 function beginForward() {
   action = "begin";
 }
+function trainForwardScript(key, acc1, acc2, acc3, acc4, acc5, acc6) {
+  console.log(data[key].name + " démarre.");
+  data[key].obj.addSpeed(acc1);
+  data[key].obj.addSpeed(acc2);
+  data[key].obj.addSpeed(acc3);
+  data[key].obj.addSpeed(acc4);
+  data[key].obj.addSpeed(acc5);
+  data[key].obj.addSpeed(acc6);
+}
+function trainBackwardScript(key, desc1, desc2, desc3, desc4, desc5, desc6) {
+  data[key].obj.stopTrain(desc1);
+  data[key].obj.stopTrain(desc2);
+  data[key].obj.stopTrain(desc3);
+  data[key].obj.stopTrain(desc4);
+  data[key].obj.stopTrain(desc5);
+  data[key].obj.stopTrain(desc6);
+  console.log(data[key].name + " est arrivé.");
+}
+function actionName() {
+  if (train1 === undefined) {
+    return alert("Ajouter au moins 1 train");
+  }
+  let name = window.prompt("Donner un nom au train : ");
+  if (train2 === undefined || data[0].name === "train1") {
+    data[0].name = name;
+    console.log(data[0]);
+    return;
+  }
+  if (train2 != undefined && data[1].name === "train2") {
+    data[1].name = name;
+    console.log(data);
+  }
+}
+function beginAction() {
+  if (train1 === undefined) {
+    return alert("Ajouter au moins 1 train");
+  }
+  for (let i = 0; i < Object.keys(data).length; i++) {
+    trainForwardScript(i, 1, 1, 2, 3, 2, 6);
+    trainBackwardScript(i, 0, 3, 4, 2, 4, 2);
+  }
+}
 function addAndBeginTravel() {
   switch (action) {
     case "nom":
-      if (train1 === undefined) {
-        return alert("Ajouter au moins 1 train");
-      }
-      let name = window.prompt("Donner un nom au train : ");
-      if (train2 === undefined) {
-        data[0].name = name;
-        console.log(data[0]);
-        return;
-      }
-      data[1].name = name;
-      console.log(data);
+      actionName();
       break;
     case "begin":
+      beginAction();
       break;
     default:
       console.log("test");
@@ -305,3 +340,13 @@ addTrains.addEventListener("click", addTrain);
 addActionsTrains.addEventListener("click", addAndBeginTravel);
 cRadioChkd.addEventListener("change", addTrainName);
 dRadioChkd.addEventListener("change", beginForward);
+
+// !---------
+// !Add to trash
+//  console.log(action);
+// [accélération 10-20-40-70-90-150, décélération 150-120-80-60-20-0]
+// console.log(Object.keys(data).length);
+//if (train2 != undefined) {
+//   trainForwardScript(1, 1, 1, 2, 3, 2, 6);
+//   trainBackwardScript(1, 0, 3, 4, 2, 4, 2);
+// }
