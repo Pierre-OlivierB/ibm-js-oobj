@@ -232,21 +232,76 @@ tchoutchou.openDoor();
 tchoutchou.changeQtt(100, 95);
 tchoutchou.closeDoor();
 
-const addFirstTrains = document.getElementById("addOneTrain");
-const addSecTrains = document.getElementById("addSecTrain");
+// !------------------------------------------------
+// TODO:
+// Build : btn A =>add one or two obj
+// btn B + two radio C and D
+// C checked + B clicked ?  «donner le nom des trains, svp » : null
+// D checked + B clicked ? «Démarrer le train, svp » + trainS [accélération 10-20-40-70-90-150, décélération 150-120-80-60-20-0]
+
+// *Work :
+const addTrains = document.getElementById("addOneTrain");
+const addActionsTrains = document.getElementById("addSecTrain");
+const cRadioChkd = document.getElementById("c");
+const dRadioChkd = document.getElementById("d");
+
+// console.log(cRadioChkd, dRadioChkd);
 var flagA = true;
 var flagB = true;
+
+var train1, train2;
+
+var data = {};
+// console.log(data[0]);
+
+var action;
 
 function addTrain() {
   if (flagA) {
     console.log("train A add");
     flagA = false;
     flagB = false;
+    train1 = new Train(150, 10, false, 0, 10, 0, 0, itin);
+    data[0] = { name: "train1", obj: train1 };
   } else if (!flagB) {
     console.log("train B add");
     flagB = true;
+    train2 = new Train(150, 10, false, 0, 10, 0, 0, itin);
+    data[1] = { name: "train2", obj: train2 };
+  }
+  console.log(train1, train2);
+}
+function addTrainName() {
+  action = "nom";
+  // console.log(action);
+}
+function beginForward() {
+  action = "begin";
+}
+function addAndBeginTravel() {
+  switch (action) {
+    case "nom":
+      if (train1 === undefined) {
+        return alert("Ajouter au moins 1 train");
+      }
+      let name = window.prompt("Donner un nom au train : ");
+      if (train2 === undefined) {
+        data[0].name = name;
+        console.log(data[0]);
+        return;
+      }
+      data[1].name = name;
+      console.log(data);
+      break;
+    case "begin":
+      break;
+    default:
+      console.log("test");
+      break;
   }
 }
 
-addFirstTrains.addEventListener("click", addTrain);
-addSecTrains.addEventListener("click", addTrain);
+addTrains.addEventListener("click", addTrain);
+addActionsTrains.addEventListener("click", addAndBeginTravel);
+cRadioChkd.addEventListener("change", addTrainName);
+dRadioChkd.addEventListener("change", beginForward);
